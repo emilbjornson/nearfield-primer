@@ -7,7 +7,7 @@
 %
 %Download article: https://arxiv.org/pdf/2110.06661.pdf
 %
-%This is version 1.0 (Last edited: 2021-10-14)
+%This is version 1.1 (Last edited: 2021-11-19)
 %
 %License: This code is licensed under the GPLv2 license. If you in any way
 %use this code for research that results in publications, please cite our
@@ -34,12 +34,16 @@ Ndim = 100;
 %Total number of RIS elements
 N = Ndim^2;
 
-
-%Define the range of points along the z-axis
-relativeRange = sort([logspace(1,5,50) 400 1000 10000]);
-
 %Compute the Fraunhofer distance
 fraunhoferDistanceElement = 2*D_element^2/lambda;
+
+%Björnson distance in number of Fraunhofer distance of a single element
+distance_B = (2*D_element*Ndim)/(fraunhoferDistanceElement);
+
+%Define the range of points along the z-axis
+relativeRange = sort([logspace(1,5,50) distance_B N/10]);
+
+
 
 %Define the range of points along the horizontal axis
 relativeRangeX = sort([  -logspace(log10(4000),-2,26) 0 logspace(-2,log10(4000),26)  ]);
@@ -118,7 +122,7 @@ end
 channelVectors0 = sqrt((2/D_element^2)^2/N^2)*numerator_exact0(:);
 
 %Determine which points the RIS focuses at
-focusIndex = [find(relativeRange==400) find(relativeRange==1000) ]; 
+focusIndex = [find(relativeRange==distance_B) find(relativeRange==N/10) ]; 
 
 XfocusIndex = find(xRange==0);
 
@@ -160,7 +164,7 @@ yticks([10 100 1000 10000 100000])
 yticklabels({'$10 d_F$','$10^2 d_F$','$10^3 d_F$','$10^4 d_F$','$10^5 d_F$'})
 xlabel('$x_r$','Interpreter','Latex');
 ylabel('$z_r$','Interpreter','Latex');
-plot(linspace(-50*sqrt(2),50*sqrt(2),2), [10 10],'r', 'Linewidth', 4)
+plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [1 1],'r', 'Linewidth', 4)
 set(gca,'fontsize',24);
 colorbar
 annotation('arrow', [.51 .55], [.45 .46],'Color','white');
@@ -168,13 +172,13 @@ axes('pos',[.56 .17 .3 .3])
 contourf(X,Y,RISGain(:,:,1).',100,'LineColor','none')
 set(gca,'YScale','log');
 set(gca,'fontsize',18);
-xlim([-1.77*400*sqrt(lambda/fraunhoferDistanceElement/N) 1.77*400*sqrt(lambda/fraunhoferDistanceElement/N)])
+xlim([-1.77*distance_B*sqrt(lambda/fraunhoferDistanceElement/N) 1.77*distance_B*sqrt(lambda/fraunhoferDistanceElement/N)])
 ylim([200 1000])
-xticks([-1.77/2*400*sqrt(lambda/fraunhoferDistanceElement/N) 0  1.77/2*400*sqrt(lambda/fraunhoferDistanceElement/N) ])
+xticks([-1.77/2*distance_B*sqrt(lambda/fraunhoferDistanceElement/N) 0  1.77/2*distance_B*sqrt(lambda/fraunhoferDistanceElement/N) ])
 xticklabels({'$-10 d_F$', '$0 d_F$','$10 d_F$'})
-yticks([N*400/(N+10*400) 400 N*400/(N-10*400) ])
+yticks([N*distance_B/(N+10*distance_B) distance_B N*distance_B/(N-10*distance_B) ])
 yticklabels({'$286 d_F$','$400 d_F$', '$667 d_F$'})
-rectangle('Position',[-1.77/2*400*sqrt(lambda/fraunhoferDistanceElement/N) N*400/(N+10*400) 1.77*400*sqrt(lambda/fraunhoferDistanceElement/N) N*400/(N-10*400)-N*400/(N+10*400)],'Linewidth', 2)
+rectangle('Position',[-1.77/2*distance_B*sqrt(lambda/fraunhoferDistanceElement/N) N*distance_B/(N+10*distance_B) 1.77*distance_B*sqrt(lambda/fraunhoferDistanceElement/N) N*distance_B/(N-10*distance_B)-N*distance_B/(N+10*distance_B)],'Linewidth', 2)
 set(gca,'XColor',[1 1 1]); 
 set(gca,'YColor',[1 1 1]); 
 
@@ -191,7 +195,7 @@ yticks([10 100 1000 10000 100000])
 yticklabels({'$10 d_F$','$10^2 d_F$','$10^3 d_F$','$10^4 d_F$','$10^5 d_F$'})
 xlabel('$x_r$','Interpreter','Latex');
 ylabel('$z_r$','Interpreter','Latex');
-plot(linspace(-50*sqrt(2),50*sqrt(2),2), [10 10],'r', 'Linewidth', 4)
+plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [10 10],'r', 'Linewidth', 4)
 set(gca,'fontsize',24);
 colorbar
 annotation('arrow', [.51 .55], [.51 .47],'Color','white');
@@ -199,13 +203,13 @@ axes('pos',[.56 .17 .3 .3])
 contourf(X,Y,RISGain(:,:,2).',100,'LineColor','none')
 set(gca,'YScale','log');
 set(gca,'fontsize',18);
-xlim([-1.77*1000*sqrt(lambda/fraunhoferDistanceElement/N) 1.77*1000*sqrt(lambda/fraunhoferDistanceElement/N)])
+xlim([-1.77*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N) 1.77*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N)])
 ylim([400 20000])
-xticks([-1.77/2*1000*sqrt(lambda/fraunhoferDistanceElement/N) 0  1.77/2*1000*sqrt(lambda/fraunhoferDistanceElement/N) ])
+xticks([-1.77/2*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N) 0  1.77/2*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N) ])
 xticklabels({'$-25 d_F$', '$0 d_F$','$25 d_F$'})
-yticks([N*1000/(N+10*1000) 1000 10000 ])
+yticks([N*(N/10)/(N+10*(N/10)) (N/10) N ])
 yticklabels({'$50 d_F$','$10^3 d_F = d_{FA}/10$', '$10^4 d_F = d_{FA}$'})
-rectangle('Position',[-1.77/2*1000*sqrt(lambda/fraunhoferDistanceElement/N) N*1000/(N+10*1000) 1.77*1000*sqrt(lambda/fraunhoferDistanceElement/N) 30000-N*1000/(N+10*1000)],'Linewidth', 2)
+rectangle('Position',[-1.77/2*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N) N*(N/10)/(N+10*(N/10)) 1.77*(N/10)*sqrt(lambda/fraunhoferDistanceElement/N) 3*N-N*(N/10)/(N+10*(N/10))],'Linewidth', 2)
 set(gca,'XColor',[1 1 1]); 
 set(gca,'YColor',[1 1 1]); 
 
@@ -222,7 +226,7 @@ yticks([10 100 1000 10000 100000])
 yticklabels({'$10 d_F$','$10^2 d_F$','$10^3 d_F$','$10^4 d_F$','$10^5 d_F$'})
 xlabel('$x_r$','Interpreter','Latex');
 ylabel('$z_r$','Interpreter','Latex');
-plot(linspace(-50*sqrt(2),50*sqrt(2),2), [10 10],'r', 'Linewidth', 4)
+plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [10 10],'r', 'Linewidth', 4)
 set(gca,'fontsize',24);
 colorbar
 
