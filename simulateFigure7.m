@@ -37,7 +37,7 @@ N = Ndim^2;
 %Compute the Fraunhofer distance
 fraunhoferDistanceElement = 2*D_element^2/lambda;
 
-%Björnson distance in number of Fraunhofer distance of a single antenna
+%Björnson distance in number of Fraunhofer distance of a single element
 distance_B = (2*D_element*Ndim)/(fraunhoferDistanceElement);
 
 %Define the range of points along the horizontal axis
