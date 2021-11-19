@@ -7,7 +7,7 @@
 %
 %Download article: https://arxiv.org/pdf/2110.06661.pdf
 %
-%This is version 1.0 (Last edited: 2021-10-14)
+%This is version 1.1 (Last edited: 2021-11-19)
 %
 %License: This code is licensed under the GPLv2 license. If you in any way
 %use this code for research that results in publications, please cite our
@@ -34,12 +34,15 @@ Ndim = 100;
 %Total number of RIS elements
 N = Ndim^2;
 
-%Define the range of points along the horizontal axis
-relativeRange = sort([logspace(1,5,300) 400 1000 10000]);
-
-
 %Compute the Fraunhofer distance
 fraunhoferDistanceElement = 2*D_element^2/lambda;
+
+%Björnson distance in number of Fraunhofer distance of a single antenna
+distance_B = (2*D_element*Ndim)/(fraunhoferDistanceElement);
+
+%Define the range of points along the horizontal axis
+relativeRange = sort([logspace(1,5,300) distance_B N/10]);
+
 
 %Determine the range of distances to be considered
 zRange = relativeRange*fraunhoferDistanceElement;
@@ -115,7 +118,7 @@ end
 channelVectors0 = sqrt((2/D_element^2)^2/N^2)*numerator_exact0(:);
 
 %Determine which points the RIS focuses at
-focusIndex = [find(relativeRange==400) find(relativeRange==1000) find(relativeRange==10000)]; 
+focusIndex = [find(relativeRange==distance_B) find(relativeRange==N/10)]; 
 
 
 %Determine the RIS gains with different phase shifts
