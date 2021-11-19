@@ -195,7 +195,7 @@ yticks([10 100 1000 10000 100000])
 yticklabels({'$10 d_F$','$10^2 d_F$','$10^3 d_F$','$10^4 d_F$','$10^5 d_F$'})
 xlabel('$x_r$','Interpreter','Latex');
 ylabel('$z_r$','Interpreter','Latex');
-plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [10 10],'r', 'Linewidth', 4)
+plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [1 1],'r', 'Linewidth', 4)
 set(gca,'fontsize',24);
 colorbar
 annotation('arrow', [.51 .55], [.51 .47],'Color','white');
@@ -226,7 +226,7 @@ yticks([10 100 1000 10000 100000])
 yticklabels({'$10 d_F$','$10^2 d_F$','$10^3 d_F$','$10^4 d_F$','$10^5 d_F$'})
 xlabel('$x_r$','Interpreter','Latex');
 ylabel('$z_r$','Interpreter','Latex');
-plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [10 10],'r', 'Linewidth', 4)
+plot(linspace(-D_element*sqrt(N/8)/fraunhoferDistanceElement, D_element*sqrt(N/8)/fraunhoferDistanceElement,2), [1 1],'r', 'Linewidth', 4)
 set(gca,'fontsize',24);
 colorbar
 
