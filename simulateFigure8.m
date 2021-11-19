@@ -7,7 +7,7 @@
 %
 %Download article: https://arxiv.org/pdf/2110.06661.pdf
 %
-%This is version 1.0 (Last edited: 2021-10-14)
+%This is version 1.1 (Last edited: 2021-11-19)
 %
 %License: This code is licensed under the GPLv2 license. If you in any way
 %use this code for research that results in publications, please cite our
