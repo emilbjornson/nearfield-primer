@@ -34,15 +34,19 @@ Ndim = 100;
 %Total number of RIS elements
 N = Ndim^2;
 
-
-%Define the range of focusing points along the z-axis
-relativeRange = [400, 1000, 2000];
-
 %Compute the Fraunhofer distance
 fraunhoferDistanceElement = 2*D_element^2/lambda;
 
+%Björnson distance in number of Fraunhofer distance of a single element
+distance_B = (2*D_element*Ndim)/(fraunhoferDistanceElement);
+
+%Define the range of focusing points along the z-axis
+relativeRange = [distance_B, N/10, N/5];
+
+
+
 %Define the range of points along the horizontal axis
-relativeRangeX = sort([ linspace(0.001,0.1,10), -linspace(0.001,0.1,10),  -logspace(log10(50),-1,101) 0 logspace(-1,log10(50),101), 0.886*2000*sqrt(lambda/fraunhoferDistanceElement/N), -0.886*2000*sqrt(lambda/fraunhoferDistanceElement/N), 0.886*1000*sqrt(lambda/fraunhoferDistanceElement/N), -0.886*1000*sqrt(lambda/fraunhoferDistanceElement/N), 0.886*400*sqrt(lambda/fraunhoferDistanceElement/N), -0.886*400*sqrt(lambda/fraunhoferDistanceElement/N) ]);
+relativeRangeX = sort([ linspace(0.001,0.1,10), -linspace(0.001,0.1,10),  -logspace(log10(50),-1,101) 0 logspace(-1,log10(50),101), 0.886*relativeRange*sqrt(lambda/fraunhoferDistanceElement/N), -0.886*relativeRange*sqrt(lambda/fraunhoferDistanceElement/N) ]);
 
 %Determine the range of distances to be considered
 xRange = relativeRangeX*fraunhoferDistanceElement;
