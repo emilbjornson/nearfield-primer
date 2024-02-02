@@ -36,7 +36,7 @@ the distance where the beamforming gain tapers off.
 
 ## Content of Code Package
 
-The article contains 6 simulation figures, numbered 3-5 and 7-9. Figures 3, 4, 5, 7, 8, and 9 are generated respectively by the Matlab scripts simulateFigure3.m, simulateFigure4.m, simulateFigure5.m, simulateFigure7.m, simulateFigure8.m, and simulateFigure9.m.
+The article contains 6 simulation figures, numbered 3-5 and 7-9. Figures 3, 4, 5, 7, 8, and 9 are generated respectively by the Matlab scripts simulateFigure3.m, simulateFigure4.m, simulateFigure5.m, simulateFigure7.m, simulateFigure8.m, and simulateFigure9.m. You can run the code in MATLAB online without a license by clicking on the link above.
 
 See each file for further documentation.
 
